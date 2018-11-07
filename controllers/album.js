@@ -13,6 +13,8 @@ var fs = require('fs');
 var path = require('path');
 
 /* Métodos */
+
+// getAlbum
 function getAlbum(req,res) {
   var albumId = req.params.id;
 
@@ -31,6 +33,7 @@ function getAlbum(req,res) {
   });
 }
 
+// getAlbums
 function getAlbums(req,res) {
   var artistId = req.params.artist;
   if (!artistId) {
@@ -52,6 +55,7 @@ function getAlbums(req,res) {
   );
 }
 
+// SaveAlbum
 function SaveAlbum(req,res) {
   var album = new Album();
   var params = req.body;
@@ -74,7 +78,7 @@ function SaveAlbum(req,res) {
     }
   });
 }
-
+ // updateAlbum
 function updateAlbum(req, res) {
    var albumId = req.params.id;
    var update = req.body;
@@ -91,6 +95,8 @@ function updateAlbum(req, res) {
      }
    });
 }
+
+// deleteAlbum
 function deleteAlbum(req, res) {
   var albumId = req.params.id;
   Album.findByIdAndRemove(albumId, (err, albumRemoved)=>{
@@ -148,6 +154,7 @@ function uploadImage(req,res) {
   }
 }
 
+// getImageFile
 function getImageFile(req, res) {
   var imageFile = req.params.imageFile;
   var path_file = './archivos/albums/'+imageFile;
