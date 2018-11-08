@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 // Configurar Cabeceras HTTP
-app.use((req.res,next)=>{
+app.use((req,res,next)=>{
   /*Acceso a todos los dominios*/
   res.header('Access-Control-Allow-Origin','*');
   /*Acceso a todas la cabezeras*/
