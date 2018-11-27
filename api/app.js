@@ -20,7 +20,8 @@ app.use((req,res,next)=>{
   /*Acceso a todos los dominios*/
   res.header('Access-Control-Allow-Origin','*');
   /*Acceso a todas la cabezeras*/
-  res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Acept','Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Custom-Information, X-Requested-With, Content-Type, Acept','Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Headers','Content-Type');
   /*Acceso a todos los metodos HTTP*/
   res.header('Access-Control-Allow-Methods','GET, POST, PUT, DELETE, OPTIONS');
   res.header('Allow','GET, POST, PUT, DELETE');
@@ -33,5 +34,4 @@ app.use('/api', album_routes);
 app.use('/api', cancion_routes);
 
 // Exportar app
-
 module.exports = app;
