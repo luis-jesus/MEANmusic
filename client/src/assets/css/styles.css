@@ -1,3 +1,24 @@
 body{
   background-color: rgba(9, 113, 10, 0.91);
 }
+/* body{
+  background-color: #d2d2d2;
+} */
+.thumbnail{
+  border-radius: 100px 100px 100px 100px;
+  -moz-border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px 100px 100px 100px;
+  width: 200px;
+  height: : 200px;
+}
+
+.thumbnail-navbar{
+  border-radius: 100px 100px 100px 100px;
+  -moz-border-radius: 100px 100px 100px 100px;
+  -webkit-border-radius: 100px 100px 100px 100px;
+  width: 30px;
+  height: 30px;
+}
+.bg-ponla{
+  background: #000000;
+}

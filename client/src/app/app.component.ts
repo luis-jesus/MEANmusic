@@ -1,8 +1,7 @@
-/* APP.COMPONENT.TS */
-
 import { Component, OnInit    } from '@angular/core';
 import { User } from './models/usuario';
 import { UserService } from './services/user.service';
+import { GLOBAL } from './services/global';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,23 +15,22 @@ export class AppComponent implements OnInit{
   public token;
   public errorMessage;
   public alertRegister;
+  public url:string;
 
   constructor(
     private _userService: UserService,
   ){
     this.user = new User('','','','','','ROLE_USER','');
     this.user_register = new User('','','','','','ROLE_USER','');
+    this.url = GLOBAL.url;
   }
 
   ngOnInit(){
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
-    // console.log(this.identity);
-    // console.log(this.token);
   }
 
   public onSubmit(){
-    console.log(this.user);
     // Consiguen Datos del Usuario
     this._userService.signUp(this.user).subscribe(
       response => {
@@ -43,7 +41,7 @@ export class AppComponent implements OnInit{
         }else{
           //Crear elemento en el LocalStorage
           localStorage.setItem('identity', JSON.stringify(identity));
-          this.user = new User('','','','','','ROLE_USER','');
+
           //Conseguir el token para cada petición
           this._userService.signUp(this.user, 'true').subscribe(
             response => {
@@ -54,9 +52,7 @@ export class AppComponent implements OnInit{
               }else{
                 //Crear elemento token en el LocalStorage
                 localStorage.setItem('token', token);
-                // console.log(token);
-                // console.log(identity);
-
+                this.user = new User('','','','','','ROLE_USER','');
               }
             },
             error => {
@@ -64,7 +60,7 @@ export class AppComponent implements OnInit{
               if(errorMessage != null){
                 var body = JSON.parse(error._body);
                 this.errorMessage = body.mensaje;
-                // console.log(error);
+
               }
             }
           );
@@ -75,7 +71,29 @@ export class AppComponent implements OnInit{
         if(errorMessage != null){
           var body = JSON.parse(error._body);
           this.errorMessage = body.mensaje;
-          // console.log(error);
+        }
+      }
+    );
+  }
+
+
+  onSubmitRegister(){
+    this._userService.register(this.user_register).subscribe(
+      res => {
+        let user = res.user;
+        this.user_register = user;
+        if(!user._id){
+          this.alertRegister = 'Error al registrarse';
+        }else{
+          this.alertRegister = 'Registro exitoso, Inicia con '+this.user_register.email;
+          this.user_register = new User('','','','','','ROLE_USER','');
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+        if(errorMessage != null){
+          var body = JSON.parse(error._body);
+          this.alertRegister = body.mensaje;
         }
       }
     );
@@ -87,31 +105,5 @@ export class AppComponent implements OnInit{
     localStorage.clear();
     this.identity = null;
     this.token = null;
-  }
-
-
-  onSubmitRegister(){
-    console.log(this.user_register);
-
-    this._userService.register(this.user_register).subscribe(
-      res => {
-        let user = res.user;
-        this.user_register = user;
-        if(!user._id){
-          this.alertRegister = 'Error al registrarse';
-        }else{
-          this.alertRegister = 'Registro exitoso, Inicia con'+this.user_register.email;
-          this.user_register = new User('','','','','','ROLE_USER','');
-        }
-      },
-      error => {
-        var errorMessage = <any>error;
-        if(errorMessage != null){
-          var body = JSON.parse(error._body);
-          this.alertRegister = body.mensaje;
-          // console.log(error);
-        }
-      }
-    );
   }
 }
