@@ -51,7 +51,7 @@
       </li>
     </ul>
     <img *ngIf="identity" src="{{url + 'get-image-user/' + identity.imagen}}" class="thumbnail-navbar" alt="Avatar">
-    <h5 *ngIf="identity" id="identity_name" class="nav-link text-light">{{identity.nombre}} {{identity.apellido}}</h5>
+    <h5 id="img-logged" *ngIf="identity" id="identity_name" class="nav-link text-light">{{identity.nombre}} {{identity.apellido}}</h5>
     <button *ngIf="identity" type="button" name="button" class="btn btn-danger" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
     <router-outlet></router-outlet>
   </div>
