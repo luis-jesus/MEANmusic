@@ -3,14 +3,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Modelo de Usuario
 var AlbumSchema = Schema({
   titulo: String,
-  artista: { type: Schema.ObjectId, ref:"Artist" }, /* Referencia al objeto Artista */
+  artista: { type: Schema.ObjectId, ref:"Artist" },
   descripcion: String,
   fecha_lanzamiento: Number,
   imagen: String,
 });
 
-// Exportar modelo
 module.exports = mongoose.model('Album',AlbumSchema);

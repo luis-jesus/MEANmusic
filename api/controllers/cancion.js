@@ -1,15 +1,11 @@
 'use strict'
 
-//importar modelos
 var Artista = require('../models/artista');
 var Album = require('../models/album');
 var Cancion = require('../models/cancion');
-
-//Sistema de archivos y Rutas
 var fs = require('fs');
 var path = require('path');
 
-/* Metodos */
 function getCancion(req,res) {
   var cancionId = req.params.id;
 
@@ -112,7 +108,6 @@ function deleteCancion(req, res) {
   });
 }
 
-// Cargar imagen
 function uploadCancion(req,res) {
   var cancionId = req.params.id;
   var file_name = 'No subido';
@@ -155,7 +150,7 @@ function getCancionFile(req, res) {
     }
   });
 }
-//Exportar Metodos
+
 module.exports = {
   getCancion,
   saveCancion,

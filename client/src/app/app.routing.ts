@@ -3,11 +3,17 @@ import { Routes, RouterModule } from '@angular/router';
 
 // importar user
 import { UserEditComponent } from './components/user-edit.component';
+import { ArtistListComponent } from './components/artist-list.component';
 
 const appRoutes: Routes = [
-  {path:'', component: UserEditComponent},
-  {path:'mi-perfil', component: UserEditComponent},
-  {path:'**', component: UserEditComponent}
+  {
+    path:'', redirectTo: 'Artista/1',
+    pathMatch :'full'
+  },
+  {path:'', component: ArtistListComponent},
+  {path:'Perfil', component: UserEditComponent},
+  {path:'Artista/:page', component: ArtistListComponent},
+  {path:'**', component: ArtistListComponent}
 ]
 
 export const appRoutingProviders: any[] = [];

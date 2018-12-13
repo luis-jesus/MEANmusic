@@ -1,26 +1,16 @@
 'use strict'
-
-// Importar bcrypt
 var bcrypt = require('bcrypt-nodejs');
-
-// Importar modelo
 var User = require('../models/usuario');
-
-// Importar Servicio
 var jwt = require('../services/jwt');
-
-// Sistema de archivos y rutas
 var fs = require('fs');
 var path = require('path');
 
-
-//Prueba
 function pruebas(req, res){
   res.status(200).send({
     mensaje: 'Probando una acción del controlador de usuario '
   });
 }
-// Crear usuario {Registro}
+
 function SaveUser(req, res) {
   var user = new User();
   var params = req.body
@@ -32,38 +22,38 @@ function SaveUser(req, res) {
   user.imagen = 'null';
 
   if (params.password) {
-    // Encriptar Contraseña
+
     bcrypt.hash(params.password, null, null, function(err,hash){
       user.password = hash;
       if (user.nombre != null && user.apellido != null && user.email != null) {
-        //Guardar Usuario
+
         user.save((err,userStored) => {
           if (err) {
-            // enviar error
+
             res.status(500).send({mensaje:'Error al registrarse ❌'});
           } else {
             if (!userStored) {
-              // enviar error
+
               res.status(404).send({mensaje:'Usuario no Registrado 🚫'});
             } else {
-              // enviar error
+
               res.status(200).send({user: userStored});
             }
           }
         });
       }else {
-        // enviar error
+
         res.status(200).send({mensaje:'Introduce Todos los Campos ❗️❗️'});
       }
     });
   }else {
-    // enviar error
+
     res.status(200).send({mensaje:'Introduce la contraseña...🔑'});
   }
 }
 
 
-// Actualizar usuario
+
 function updateUser(req, res) {
    var userId = req.params.id;
    var update = req.body;
@@ -85,7 +75,6 @@ function updateUser(req, res) {
    });
 }
 
-// Login
 function loginUser(req,res) {
   var params = req.body;
 
@@ -99,12 +88,11 @@ function loginUser(req,res) {
       if (!user) {
         res.status(404).send({ mensaje : 'Usuario no registrado ❎'});
       } else {
-        // Comprobar Contraseña
+
         bcrypt.compare(password, user.password, function(err,check) {
           if (check) {
-            // Devolver los datos del Usuario Loggeado
+
             if (params.gethash) {
-              // Devolver token jwt
               res.status(200).send({
                 token: jwt.CreateToken(user)
               });
@@ -120,7 +108,6 @@ function loginUser(req,res) {
   });
 }
 
-// Cargar imagen
 function uploadImage(req,res) {
   var userId = req.params.id;
   var file_name = 'No subido';
@@ -164,7 +151,6 @@ function getImageFile(req, res) {
   });
 }
 
-// Exportar función
 module.exports = {
   pruebas,
   SaveUser,

@@ -1,18 +1,13 @@
 'use strict'
 
-// Módulo de paginación
-var mongoosePaginate = require('mongoose-pagination');
 
-// Importar modelos
+var mongoosePaginate = require('mongoose-pagination');
 var Artista = require('../models/artista');
 var Album = require('../models/album');
 var Cancion = require('../models/cancion');
-
-// Sistema de archivos y rutas
 var fs = require('fs');
 var path = require('path');
 
-/* Métodos */
 function getArtist(req,res) {
   var artistId = req.params.id;
 
@@ -125,8 +120,6 @@ function deleteArtist(req, res) {
   });
 }
 
-
-// Cargar imagen
 function uploadImage(req,res) {
   var artistId = req.params.id;
   var file_name = 'No subido';
@@ -169,7 +162,6 @@ function getImageFile(req, res) {
     }
   });
 }
-// Exportar métodos
 module.exports = {
   getArtist,
   SaveArtist,
